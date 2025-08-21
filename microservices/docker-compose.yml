@@ -1,0 +1,177 @@
+version: '3.8'
+
+services:
+  # Eureka Discovery Server
+  discovery-server:
+    build:
+      context: ./discovery-server/
+      dockerfile: Dockerfile
+    container_name: discovery-server
+    ports:
+      - "8761:8761"
+    environment:
+      - EUREKA_INSTANCE_HOSTNAME=discovery-server
+    networks:
+      - microservices-network
+
+  # API Gateway
+  api-gateway:
+    build:
+      context: ./api-gateway/
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discovery-server
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    networks:
+      - microservices-network
+
+  # User Management Service
+  user-management-service:
+    build:
+      context: ./user-management-service/
+      dockerfile: Dockerfile
+    container_name: user-management-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - discovery-server
+      - postgres
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=form_management
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+    networks:
+      - microservices-network
+
+  # Form Management Service
+  form-management-service:
+    build:
+      context: ./form-management-service/
+      dockerfile: Dockerfile
+    container_name: form-management-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - discovery-server
+      - postgres
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=form_management
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+    networks:
+      - microservices-network
+
+  # Group Management Service
+  group-management-service:
+    build:
+      context: ./group-management-service/
+      dockerfile: Dockerfile
+    container_name: group-management-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - discovery-server
+      - postgres
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=form_management
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+    networks:
+      - microservices-network
+
+  # Form Submission Service
+  form-submission-service:
+    build:
+      context: ./form-submission-service/
+      dockerfile: Dockerfile
+    container_name: form-submission-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - discovery-server
+      - postgres
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=form_management
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+    networks:
+      - microservices-network
+
+  # Reports Service
+  reports-service:
+    build:
+      context: ./reports-service/
+      dockerfile: Dockerfile
+    container_name: reports-service
+    ports:
+      - "8085:8085"
+    depends_on:
+      - discovery-server
+      - postgres
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=form_management
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+    networks:
+      - microservices-network
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_USER: myuser
+      POSTGRES_DB: form_management
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - microservices-network
+
+  # Frontend (React)
+  frontend:
+    build:
+      context: ../frontend/
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    working_dir: /app
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - VITE_API_BASE_URL=http://localhost:8080
+    command: npm run dev -- --host
+    networks:
+      - microservices-network
+
+volumes:
+  postgres_data:
+
+networks:
+  microservices-network:
+    driver: bridge

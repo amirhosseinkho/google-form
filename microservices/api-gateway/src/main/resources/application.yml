@@ -1,0 +1,70 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: user-management-service
+          uri: lb://user-management-service
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=0
+        
+        - id: form-management-service
+          uri: lb://form-management-service
+          predicates:
+            - Path=/api/forms/**
+          filters:
+            - StripPrefix=0
+        
+        - id: group-management-service
+          uri: lb://group-management-service
+          predicates:
+            - Path=/api/groups/**
+          filters:
+            - StripPrefix=0
+        
+        - id: form-submission-service
+          uri: lb://form-submission-service
+          predicates:
+            - Path=/api/submissions/**
+            - Path=/api/assignments/**
+          filters:
+            - StripPrefix=0
+        
+        - id: reports-service
+          uri: lb://reports-service
+          predicates:
+            - Path=/api/reports/**
+          filters:
+            - StripPrefix=0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,gateway
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.example.apigateway: DEBUG

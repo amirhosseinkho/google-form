@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  react-app:
+    container_name: react-vite-dev
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm run dev -- --host
+
+  postgres:
+    build:
+      context: ./backend/database/
+      dockerfile: Dockerfile
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_USER: myuser
+      POSTGRES_DB: mydatabase1
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+#    networks:
+#      - my_microservice_network
+    hostname: postgres
+
+  backend:
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - "8081:8080"
+#    networks:
+#      - my_microservice_network
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=mydatabase1
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+
