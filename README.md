@@ -1,36 +1,40 @@
-# پروژه سیستم مدیریت فرم‌ها
+> Persian version: [README.fa.md](README.fa.md)
 
-## فهرست مطالب
-- [معرفی پروژه](#معرفی-پروژه)
-- [معماری سیستم](#معماری-سیستم)
-- [تکنولوژی‌های استفاده شده](#تکنولوژی‌های-استفاده-شده)
-- [ساختار پروژه](#ساختار-پروژه)
-- [بخش بک‌اند](#بخش-بک‌اند)
-- [بخش فرانت‌اند](#بخش-فرانت‌اند)
-- [دیتابیس](#دیتابیس)
-- [ویژگی‌های پیاده‌سازی شده](#ویژگی‌های-پیاده‌سازی-شده)
-- [راه‌اندازی پروژه](#راه‌اندازی-پروژه)
-- [API Endpoints](#api-endpoints)
-- [مشکلات و راه‌حل‌ها](#مشکلات-و-راه‌حل‌ها)
+# Form management system
 
-## معرفی پروژه
+## Contents
 
-این پروژه یک سیستم کامل مدیریت فرم‌ها است که شامل ایجاد، ویرایش، توزیع و جمع‌آوری فرم‌ها می‌باشد. سیستم دارای مدیریت کاربران، گروه‌ها و گزارش‌گیری است.
+- [Introduction](#introduction)
+- [System architecture](#system-architecture)
+- [Technologies](#technologies)
+- [Project structure](#project-structure)
+- [Back end](#back-end)
+- [Front end](#front-end)
+- [Database](#database)
+- [Implemented features](#implemented-features)
+- [Running the project](#running-the-project)
+- [API endpoints](#api-endpoints)
+- [Problems and solutions](#problems-and-solutions)
 
-### قابلیت‌های اصلی:
-- مدیریت کاربران (ثبت‌نام، ورود، پروفایل)
-- ایجاد و ویرایش فرم‌ها با فیلدهای مختلف
-- مدیریت گروه‌ها و اعضا
-- توزیع فرم‌ها به گروه‌ها
-- پر کردن فرم‌ها توسط کاربران
-- مشاهده و مدیریت ارسال‌ها
-- ویرایش ارسال‌های انجام شده
-- مشاهده سابمیشن‌های هر فرم
-- گزارش‌گیری و آمار
-- داشبورد با اطلاعات واقعی
-- امنیت و مجوزهای کاربری
+## Introduction
 
-## معماری سیستم
+This project is a complete form management system for creating, editing, distributing and collecting forms. It includes user management, groups and reporting.
+
+### Main features
+
+- User management (sign-up, login, profile)
+- Creating and editing forms with different field types
+- Managing groups and their members
+- Distributing forms to groups
+- Filling in forms
+- Viewing and managing submissions
+- Editing submitted responses
+- Viewing the submissions of each form
+- Reports and statistics
+- A dashboard with live data
+- Security and user permissions
+
+## System architecture
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
@@ -43,67 +47,70 @@
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-## تکنولوژی‌های استفاده شده
+## Technologies
 
-### Backend
-- **Kotlin** - زبان برنامه‌نویسی اصلی
-- **Spring Boot 3.4.2** - فریم‌ورک اصلی
-- **Spring Data JPA** - مدیریت دیتابیس
-- **Spring Security** - امنیت و احراز هویت
-- **PostgreSQL** - دیتابیس اصلی
-- **Jackson** - سریالایز/دیسریالایز JSON
-- **Gradle** - مدیریت وابستگی‌ها
+### Back end
 
-### Frontend
-- **React 18** - فریم‌ورک اصلی
-- **TypeScript** - زبان برنامه‌نویسی
-- **Ant Design** - کتابخانه UI
-- **React Router** - مدیریت مسیریابی
-- **Vite** - ابزار ساخت
-- **Tailwind CSS** - استایل‌دهی
-- **React Beautiful DnD** - درگ و دراپ
+- **Kotlin**: main programming language
+- **Spring Boot 3.4.2**: main framework
+- **Spring Data JPA**: database access
+- **Spring Security**: security and authentication
+- **PostgreSQL**: main database
+- **Jackson**: JSON serialization/deserialization
+- **Gradle**: dependency management
+
+### Front end
+
+- **React 18**: main framework
+- **TypeScript**: programming language
+- **Ant Design**: UI library
+- **React Router**: routing
+- **Vite**: build tool
+- **Tailwind CSS**: styling
+- **React Beautiful DnD**: drag and drop
 
 ### Database
-- **PostgreSQL** - دیتابیس رابطه‌ای
-- **Docker** - کانتینرسازی
 
-## ساختار پروژه
+- **PostgreSQL**: relational database
+- **Docker**: containerization
+
+## Project structure
 
 ```
-wp_project_12/
-├── backend/                    # بخش بک‌اند
+google-form/
+├── backend/                    # back end
 │   ├── src/main/kotlin/
 │   │   └── org/example/backend/
 │   │       ├── api/            # API interfaces
-│   │       ├── configs/        # تنظیمات
-│   │       ├── controller/     # کنترلرها
-│   │       ├── model/          # مدل‌ها
-│   │       │   ├── database/   # مدل‌های دیتابیس
-│   │       │   └── dto/        # Data Transfer Objects
-│   │       ├── repository/     # repository ها
-│   │       └── service/        # سرویس‌ها
-│   ├── build.gradle.kts        # تنظیمات Gradle
-│   └── Dockerfile              # Dockerfile بک‌اند
-├── frontend/                   # بخش فرانت‌اند
+│   │       ├── configs/        # configuration
+│   │       ├── controller/     # controllers
+│   │       ├── model/          # models
+│   │       │   ├── database/   # database models
+│   │       │   └── dto/        # data transfer objects
+│   │       ├── repository/     # repositories
+│   │       └── service/        # services
+│   ├── build.gradle.kts        # Gradle configuration
+│   └── Dockerfile              # back-end Dockerfile
+├── frontend/                   # front end
 │   ├── src/
-│   │   ├── components/         # کامپوننت‌ها
-│   │   ├── pages/             # صفحات
-│   │   ├── layouts/           # لایوت‌ها
-│   │   ├── routes/            # مسیریابی
-│   │   └── api/               # API calls
-│   ├── package.json           # وابستگی‌های npm
-│   └── Dockerfile             # Dockerfile فرانت‌اند
-├── database/                   # دیتابیس
+│   │   ├── components/         # components
+│   │   ├── pages/              # pages
+│   │   ├── layouts/            # layouts
+│   │   ├── routes/             # routing
+│   │   └── api/                # API calls
+│   ├── package.json            # npm dependencies
+│   └── Dockerfile              # front-end Dockerfile
+├── database/                   # database
 │   ├── Dockerfile
-│   └── init.sql/              # اسکریپت‌های اولیه
-└── docker-compose.yml         # تنظیمات Docker Compose
+│   └── init.sql/               # initialization scripts
+└── docker-compose.yml          # Docker Compose configuration
 ```
 
-## بخش بک‌اند
+## Back end
 
-### ساختار کد بک‌اند
+### Back-end code structure
 
-#### 1. مدل‌های دیتابیس (`model/database/`)
+#### 1. Database models (`model/database/`)
 
 **UserModel.kt**
 ```kotlin
@@ -167,7 +174,7 @@ data class FormSubmission(
 )
 ```
 
-#### 2. DTO ها (`model/dto/`)
+#### 2. DTOs (`model/dto/`)
 
 **FormRequestDTO.kt**
 ```kotlin
@@ -192,45 +199,45 @@ data class FormFieldDTO(
 )
 ```
 
-#### 3. کنترلرها (`controller/`)
+#### 3. Controllers (`controller/`)
 
 **FormController.kt**
-- `GET /api/forms` - دریافت همه فرم‌ها
-- `GET /api/forms/{id}` - دریافت فرم خاص
-- `POST /api/forms` - ایجاد فرم جدید
-- `PUT /api/forms/{id}` - ویرایش فرم
-- `DELETE /api/forms/{id}` - حذف فرم
+- `GET /api/forms`: get all forms
+- `GET /api/forms/{id}`: get one form
+- `POST /api/forms`: create a form
+- `PUT /api/forms/{id}`: edit a form
+- `DELETE /api/forms/{id}`: delete a form
 
 **UserManagementController.kt**
-- `POST /api/user-managements/sign-up` - ثبت‌نام
-- `POST /api/user-managements/login` - ورود
-- `GET /api/user-managements/{id}` - دریافت پروفایل
-- `PUT /api/user-managements/{id}` - ویرایش پروفایل
+- `POST /api/user-managements/sign-up`: sign up
+- `POST /api/user-managements/login`: log in
+- `GET /api/user-managements/{id}`: get a profile
+- `PUT /api/user-managements/{id}`: edit a profile
 
 **GroupController.kt**
-- `GET /api/groups` - دریافت همه گروه‌ها
-- `POST /api/groups` - ایجاد گروه
-- `PUT /api/groups/{id}` - ویرایش گروه
-- `DELETE /api/groups/{id}` - حذف گروه
+- `GET /api/groups`: get all groups
+- `POST /api/groups`: create a group
+- `PUT /api/groups/{id}`: edit a group
+- `DELETE /api/groups/{id}`: delete a group
 
-#### 4. سرویس‌ها (`service/`)
+#### 4. Services (`service/`)
 
 **UserManagementService.kt**
-- مدیریت کاربران
-- رمزنگاری پسورد
-- اعتبارسنجی داده‌ها
+- user management
+- password hashing
+- data validation
 
 **FormSubmissionService.kt**
-- مدیریت ارسال فرم‌ها
-- ذخیره پاسخ‌ها
-- بازیابی ارسال‌ها
+- managing form submissions
+- storing answers
+- retrieving submissions
 
 **ReportsService.kt**
-- تولید آمار سیستم
-- تحلیل فرم‌ها
-- گزارش‌گیری
+- system statistics
+- form analytics
+- reports
 
-#### 5. Repository ها (`repository/`)
+#### 5. Repositories (`repository/`)
 
 **UserRepository.kt**
 ```kotlin
@@ -242,7 +249,7 @@ interface UserRepository : JpaRepository<UserModel, Long> {
 }
 ```
 
-### تنظیمات امنیت
+### Security configuration
 
 **SecurityConfig.kt**
 ```kotlin
@@ -263,38 +270,38 @@ class SecurityConfig {
 }
 ```
 
-## بخش فرانت‌اند
+## Front end
 
-### ساختار کد فرانت‌اند
+### Front-end code structure
 
-#### 1. صفحات اصلی (`pages/`)
+#### 1. Main pages (`pages/`)
 
 **LoginPage.tsx**
-- فرم ورود کاربران
-- اعتبارسنجی ورودی‌ها
-- ذخیره توکن در localStorage
+- user login form
+- input validation
+- stores the token in `localStorage`
 
 **RegisterPage.tsx**
-- فرم ثبت‌نام کاربران جدید
-- اعتبارسنجی ایمیل و پسورد
-- پیام‌های خطا
+- sign-up form for new users
+- email and password validation
+- error messages
 
 **Dashboard.tsx**
-- داشبورد اصلی
-- نمایش آمار سیستم
-- فعالیت‌های اخیر
+- the main dashboard
+- system statistics
+- recent activity
 
 **FormBuilderPage.tsx**
-- ایجاد و ویرایش فرم‌ها
-- اضافه کردن فیلدهای مختلف
-- پیش‌نمایش فرم
+- creating and editing forms
+- adding different field types
+- form preview
 
 **FormsPage.tsx**
-- لیست همه فرم‌ها
-- عملیات ویرایش و حذف
-- تأیید حذف
+- list of all forms
+- edit and delete actions
+- delete confirmation
 
-#### 2. لایوت‌ها (`layouts/`)
+#### 2. Layouts (`layouts/`)
 
 **ProtectedLayout.tsx**
 ```typescript
@@ -317,18 +324,18 @@ const ProtectedLayout = () => {
 ```
 
 **Navigation.tsx**
-- منوی اصلی سیستم
-- لینک‌های مختلف
-- نمایش اطلاعات کاربر
+- the main menu
+- navigation links
+- user information
 
-#### 3. کامپوننت‌ها (`components/`)
+#### 3. Components (`components/`)
 
 **ChartReport.tsx**
-- نمودارهای گزارش‌گیری
-- پشتیبانی از نمودار میله‌ای و دایره‌ای
-- داده‌های واقعی از API
+- report charts
+- bar and pie charts
+- real data from the API
 
-#### 4. مسیریابی (`routes/`)
+#### 4. Routing (`routes/`)
 
 **AppRoutes.tsx**
 ```typescript
@@ -342,7 +349,7 @@ const router = createBrowserRouter([
       { path: "/forms/create", element: <FormBuilderPage /> },
       { path: "/forms/:id", element: <FormPage /> },
       { path: "/forms/:id/edit", element: <FormBuilderPage /> },
-      // ... سایر مسیرها
+      // ... other routes
     ]
   },
   {
@@ -352,27 +359,27 @@ const router = createBrowserRouter([
 ]);
 ```
 
-### ویژگی‌های UI/UX
+### UI/UX
 
-1. **طراحی ریسپانسیو**
-   - سازگار با موبایل و دسکتاپ
-   - استفاده از Tailwind CSS
+1. **Responsive design**
+   - works on mobile and desktop
+   - built with Tailwind CSS
 
-2. **تجربه کاربری**
-   - پیام‌های موفقیت و خطا
-   - Loading states
-   - تأیید عملیات حساس
+2. **User experience**
+   - success and error messages
+   - loading states
+   - confirmation for sensitive actions
 
-3. **اعتبارسنجی**
-   - اعتبارسنجی فرم‌ها
-   - پیام‌های خطای مناسب
-   - پیش‌نمایش فیلدها
+3. **Validation**
+   - form validation
+   - clear error messages
+   - field preview
 
-## دیتابیس
+## Database
 
-### جداول اصلی
+### Main tables
 
-#### 1. جدول users
+#### 1. users
 ```sql
 CREATE TABLE users (
     id BIGSERIAL PRIMARY KEY,
@@ -385,7 +392,7 @@ CREATE TABLE users (
 );
 ```
 
-#### 2. جدول forms
+#### 2. forms
 ```sql
 CREATE TABLE forms (
     id BIGSERIAL PRIMARY KEY,
@@ -398,7 +405,7 @@ CREATE TABLE forms (
 );
 ```
 
-#### 3. جدول groups
+#### 3. groups
 ```sql
 CREATE TABLE groups (
     id BIGSERIAL PRIMARY KEY,
@@ -410,7 +417,7 @@ CREATE TABLE groups (
 );
 ```
 
-#### 4. جدول group_members
+#### 4. group_members
 ```sql
 CREATE TABLE group_members (
     id BIGSERIAL PRIMARY KEY,
@@ -420,7 +427,7 @@ CREATE TABLE group_members (
 );
 ```
 
-#### 5. جدول form_assignments
+#### 5. form_assignments
 ```sql
 CREATE TABLE form_assignments (
     id BIGSERIAL PRIMARY KEY,
@@ -431,7 +438,7 @@ CREATE TABLE form_assignments (
 );
 ```
 
-#### 6. جدول form_submissions
+#### 6. form_submissions
 ```sql
 CREATE TABLE form_submissions (
     id BIGSERIAL PRIMARY KEY,
@@ -443,7 +450,7 @@ CREATE TABLE form_submissions (
 );
 ```
 
-### روابط دیتابیس
+### Relationships
 
 ```
 users (1) ──── (N) group_members (N) ──── (1) groups
@@ -451,207 +458,232 @@ users (1) ──── (N) form_submissions (N) ──── (1) forms
 groups (1) ──── (N) form_assignments (N) ──── (1) forms
 ```
 
-## ویژگی‌های پیاده‌سازی شده
+## Implemented features
 
-### 1. مدیریت کاربران
-- **ثبت‌نام**: ثبت کاربران جدید با اعتبارسنجی
-- **ورود**: احراز هویت کاربران
-- **پروفایل**: مشاهده و ویرایش اطلاعات شخصی
-- **تغییر پسورد**: امکان تغییر رمز عبور
+### 1. User management
 
-### 2. مدیریت فرم‌ها
-- **ایجاد فرم**: ساخت فرم‌های جدید با فیلدهای مختلف
-- **ویرایش فرم**: تغییر محتوای فرم‌های موجود
-- **حذف فرم**: حذف فرم‌ها با تأیید
-- **مشاهده فرم**: نمایش جزئیات فرم‌ها
+- **Sign-up**: registering new users with validation
+- **Login**: user authentication
+- **Profile**: viewing and editing personal information
+- **Password change**: users can change their password
 
-### 3. انواع فیلدها
-- **Text**: فیلد متنی ساده
-- **Textarea**: فیلد متنی چند خطی
-- **Number**: فیلد عددی
-- **Date**: فیلد تاریخ
-- **Dropdown**: فیلد انتخاب از لیست
-- **Checkbox**: فیلد انتخاب چندگانه
-- **Radio**: فیلد انتخاب تکی
+### 2. Form management
 
-### 4. مدیریت گروه‌ها
-- **ایجاد گروه**: ساخت گروه‌های جدید
-- **ویرایش گروه**: تغییر اطلاعات گروه
-- **حذف گروه**: حذف گروه‌ها
-- **اضافه کردن عضو**: افزودن کاربران به گروه
-- **حذف عضو**: خارج کردن کاربران از گروه
+- **Create**: build new forms with different field types
+- **Edit**: change existing forms
+- **Delete**: delete forms after confirmation
+- **View**: show form details
 
-### 5. توزیع فرم‌ها
-- **تخصیص فرم**: اختصاص فرم‌ها به گروه‌ها
-- **مشاهده فرم‌های تخصیص داده شده**: لیست فرم‌های قابل پر کردن
-- **حذف تخصیص**: لغو تخصیص فرم‌ها
+### 3. Field types
 
-### 6. پر کردن فرم‌ها
-- **مشاهده فرم**: نمایش فرم‌های تخصیص داده شده
-- **پر کردن فرم**: پاسخ به سوالات فرم
-- **ارسال فرم**: ثبت نهایی پاسخ‌ها
+- **Text**: single-line text
+- **Textarea**: multi-line text
+- **Number**: numeric field
+- **Date**: date field
+- **Dropdown**: choose from a list
+- **Checkbox**: multiple choice
+- **Radio**: single choice
 
-### 7. مدیریت ارسال‌ها
-- **مشاهده ارسال‌ها**: لیست ارسال‌های کاربر
-- **جزئیات ارسال**: مشاهده پاسخ‌های ارسال شده
-- **حذف ارسال**: حذف ارسال‌های ناخواسته
+### 4. Group management
 
-### 8. گزارش‌گیری
-- **آمار کلی**: تعداد کاربران، فرم‌ها، گروه‌ها
-- **تحلیل فرم‌ها**: آمار ارسال‌ها و پاسخ‌ها
-- **نمودارها**: نمایش بصری داده‌ها
-- **فعالیت‌های اخیر**: آخرین فعالیت‌های سیستم
+- **Create** groups
+- **Edit** group information
+- **Delete** groups
+- **Add members** to a group
+- **Remove members** from a group
 
-### 9. داشبورد
-- **آمار واقعی**: اطلاعات زنده از دیتابیس
-- **فعالیت‌های اخیر**: آخرین تغییرات
-- **دسترسی سریع**: لینک‌های مهم
+### 5. Distributing forms
 
-## راه‌اندازی پروژه
+- **Assign** forms to groups
+- **View assigned forms**: the list of forms a user can fill in
+- **Remove assignments**
 
-### پیش‌نیازها
+### 6. Filling in forms
+
+- **View** assigned forms
+- **Fill in** answers
+- **Submit** the final answers
+
+### 7. Managing submissions
+
+- **View** the user's submissions
+- **Details** of submitted answers
+- **Delete** unwanted submissions
+
+### 8. Reports
+
+- **Overall statistics**: number of users, forms and groups
+- **Form analytics**: submission and answer statistics
+- **Charts**: visual presentation of the data
+- **Recent activity**: the latest activity in the system
+
+### 9. Dashboard
+
+- **Live statistics** from the database
+- **Recent activity**: the latest changes
+- **Quick access** to important links
+
+## Running the project
+
+### Prerequisites
+
 - Java 17
 - Node.js 18+
-- Docker & Docker Compose
+- Docker and Docker Compose
 - PostgreSQL
 
-### 1. راه‌اندازی دیتابیس
+### 1. Start the database
+
 ```bash
-# راه‌اندازی PostgreSQL با Docker
+# Start PostgreSQL with Docker
 docker-compose up -d database
 ```
 
-### 2. راه‌اندازی بک‌اند
+### 2. Start the back end
+
 ```bash
 cd backend
 ./gradlew bootRun
 ```
 
-### 3. راه‌اندازی فرانت‌اند
+### 3. Start the front end
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-### 4. دسترسی به سیستم
-- **فرانت‌اند**: http://localhost:5173
-- **بک‌اند**: http://localhost:8080
-- **دیتابیس**: localhost:5432
+### 4. Access
 
-## API Endpoints
+- **Front end**: http://localhost:5173
+- **Back end**: http://localhost:8080
+- **Database**: localhost:5432
 
-### مدیریت کاربران
-```
-POST   /api/user-managements/sign-up     # ثبت‌نام
-POST   /api/user-managements/login       # ورود
-GET    /api/user-managements/{id}        # دریافت پروفایل
-PUT    /api/user-managements/{id}        # ویرایش پروفایل
-```
+## API endpoints
 
-### مدیریت فرم‌ها
+### User management
+
 ```
-GET    /api/forms                        # لیست فرم‌ها
-GET    /api/forms/{id}                   # دریافت فرم
-POST   /api/forms                        # ایجاد فرم
-PUT    /api/forms/{id}                   # ویرایش فرم
-DELETE /api/forms/{id}                   # حذف فرم
+POST   /api/user-managements/sign-up     # sign up
+POST   /api/user-managements/login       # log in
+GET    /api/user-managements/{id}        # get profile
+PUT    /api/user-managements/{id}        # edit profile
 ```
 
-### مدیریت گروه‌ها
-```
-GET    /api/groups                       # لیست گروه‌ها
-GET    /api/groups/{id}                  # دریافت گروه
-POST   /api/groups                       # ایجاد گروه
-PUT    /api/groups/{id}                  # ویرایش گروه
-DELETE /api/groups/{id}                  # حذف گروه
-POST   /api/groups/members               # اضافه کردن عضو
-```
+### Forms
 
-### تخصیص فرم‌ها
 ```
-GET    /api/form-assignments/form/{id}   # فرم‌های تخصیص داده شده
-POST   /api/form-assignments             # تخصیص فرم
-DELETE /api/form-assignments/{id}        # حذف تخصیص
+GET    /api/forms                        # list forms
+GET    /api/forms/{id}                   # get a form
+POST   /api/forms                        # create a form
+PUT    /api/forms/{id}                   # edit a form
+DELETE /api/forms/{id}                   # delete a form
 ```
 
-### ارسال فرم‌ها
-```
-GET    /api/form-submissions/user/{id}   # ارسال‌های کاربر
-POST   /api/form-submissions             # ارسال فرم
-DELETE /api/form-submissions/{id}        # حذف ارسال
-```
+### Groups
 
-### گزارش‌گیری
 ```
-GET    /api/reports/stats                # آمار کلی
-GET    /api/reports/form/{id}/analytics  # تحلیل فرم
-GET    /api/reports/activity             # فعالیت‌های اخیر
+GET    /api/groups                       # list groups
+GET    /api/groups/{id}                  # get a group
+POST   /api/groups                       # create a group
+PUT    /api/groups/{id}                  # edit a group
+DELETE /api/groups/{id}                  # delete a group
+POST   /api/groups/members               # add a member
 ```
 
-## مشکلات و راه‌حل‌ها
+### Form assignments
 
-### 1. مشکل ذخیره فیلدهای فرم
-**مشکل**: فیلدهای فرم در دیتابیس ذخیره نمی‌شدند
-**راه‌حل**: 
-- اضافه کردن ObjectMapper با تنظیمات Kotlin
-- بهبود سریالایز/دیسریالایز JSON
-- اضافه کردن لاگ‌های debug
+```
+GET    /api/form-assignments/form/{id}   # assignments of a form
+POST   /api/form-assignments             # assign a form
+DELETE /api/form-assignments/{id}        # remove an assignment
+```
 
-### 2. مشکل احراز هویت
-**مشکل**: عدم پشتیبانی از JWT
-**راه‌حل**: 
-- استفاده از توکن ساده در localStorage
-- غیرفعال کردن موقت Security برای توسعه
+### Form submissions
 
-### 3. مشکل CORS
-**مشکل**: خطای CORS در فرانت‌اند
-**راه‌حل**: 
-- غیرفعال کردن CORS در SecurityConfig
-- تنظیم headers مناسب
+```
+GET    /api/form-submissions/user/{id}   # a user's submissions
+POST   /api/form-submissions             # submit a form
+DELETE /api/form-submissions/{id}        # delete a submission
+```
 
-### 4. مشکل دیتابیس
-**مشکل**: عدم اتصال به PostgreSQL
-**راه‌حل**: 
-- استفاده از Docker Compose
-- تنظیم credentials صحیح
-- ایجاد جداول با init.sql
+### Reports
 
-### 5. مشکل UI/UX
-**مشکل**: عدم سازگاری با موبایل
-**راه‌حل**: 
-- استفاده از Tailwind CSS
-- طراحی ریسپانسیو
-- بهبود تجربه کاربری
+```
+GET    /api/reports/stats                # overall statistics
+GET    /api/reports/form/{id}/analytics  # form analytics
+GET    /api/reports/activity             # recent activity
+```
 
-## نکات مهم
+## Problems and solutions
 
-### امنیت
-- پسوردها با BCrypt رمزنگاری می‌شوند
-- اعتبارسنجی ورودی‌ها در بک‌اند
-- محافظت از API endpoints
+### 1. Form fields were not saved
 
-### عملکرد
-- استفاده از JPA برای بهینه‌سازی کوئری‌ها
-- Lazy loading برای روابط
-- Caching مناسب
+**Problem**: form fields were not being stored in the database.
+**Solution**:
+- added an `ObjectMapper` configured for Kotlin
+- improved JSON serialization/deserialization
+- added debug logging
 
-### قابلیت توسعه
-- معماری لایه‌ای
-- جداسازی مسئولیت‌ها
-- کد تمیز و قابل نگهداری
+### 2. Authentication
 
-## نتیجه‌گیری
+**Problem**: no JWT support.
+**Solution**:
+- a simple token stored in `localStorage`
+- Spring Security temporarily disabled for development
 
-این پروژه یک سیستم کامل مدیریت فرم‌ها است که با استفاده از تکنولوژی‌های مدرن پیاده‌سازی شده است. سیستم دارای قابلیت‌های کامل مدیریت کاربران، فرم‌ها، گروه‌ها و گزارش‌گیری می‌باشد.
+### 3. CORS
 
-### نقاط قوت:
-- معماری کامل و منسجم
-- UI/UX مدرن و کاربرپسند
-- امنیت مناسب
-- قابلیت توسعه
-- مستندات کامل
+**Problem**: CORS errors in the front end.
+**Solution**:
+- disabled CORS in `SecurityConfig`
+- set the appropriate headers
 
+### 4. Database connection
 
----
+**Problem**: could not connect to PostgreSQL.
+**Solution**:
+- used Docker Compose
+- set the correct credentials
+- created the tables with `init.sql`
 
+### 5. UI/UX
+
+**Problem**: the interface did not work well on mobile.
+**Solution**:
+- used Tailwind CSS
+- responsive design
+- better user experience
+
+## Notes
+
+### Security
+
+- passwords are hashed with BCrypt
+- inputs are validated in the back end
+- API endpoints are protected
+
+### Performance
+
+- JPA for efficient queries
+- lazy loading for relationships
+- caching where appropriate
+
+### Extensibility
+
+- layered architecture
+- separation of responsibilities
+- clean, maintainable code
+
+## Conclusion
+
+This project is a complete form management system built with modern technologies. It covers user, form and group management as well as reporting.
+
+### Strengths
+
+- a complete, consistent architecture
+- a modern, user-friendly UI
+- appropriate security
+- extensibility
+- complete documentation
